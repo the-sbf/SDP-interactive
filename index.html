@@ -628,6 +628,53 @@
     }
     .sbf-reminder.show { display: block; }
 
+    .sent-success {
+      display: none;
+      margin-top: 12px;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 9px;
+      padding: 14px 16px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .sent-success.show { display: block; }
+    .sent-success b { color: var(--amber); }
+
+    .email-options {
+      display: none;
+      margin-top: 12px;
+      background: #fff;
+      border: 2px solid var(--navy);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .email-options.show { display: block; }
+    .eo-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 19px; letter-spacing: 0.8px;
+      color: var(--navy); margin-bottom: 8px;
+    }
+    .eo-to { font-size: 13px; color: #333; margin-bottom: 4px; word-break: break-all; }
+    .eo-attach {
+      font-size: 12px; color: #a05a00;
+      background: #fff4d6; border: 1px solid #f0c469;
+      border-radius: 6px; padding: 7px 9px; margin: 8px 0 12px;
+    }
+    .eo-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    @media (max-width: 480px) { .eo-buttons { grid-template-columns: 1fr; } }
+    .eo-btn {
+      display: block; text-align: center; text-decoration: none;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 14px; letter-spacing: 0.8px;
+      padding: 10px 12px; border-radius: 7px;
+      border: 1.5px solid var(--navy); background: #fff; color: var(--navy);
+      cursor: pointer; transition: all 0.15s;
+    }
+    .eo-btn:hover { background: var(--navy); color: #fff; }
+    .eo-primary { background: var(--amber); border-color: var(--amber); color: var(--navy); }
+    .eo-primary:hover { background: #e5a510; border-color: #e5a510; color: var(--navy); }
+
     .summary-actions { display: flex; gap: 10px; }
     .print-btn, .copy-btn {
       flex: 1;
@@ -807,7 +854,7 @@
       .sdp-wrap { box-shadow: none; max-width: 100%; height: auto; display: block; }
       .sdp-header, .progress-bar-wrap, .nav-bar, .print-btn, .copy-btn,
       .add-subject-btn, .step-chip, .hero-aside, .section-tag,
-      .slide-title, .slide-sub, .rotate-prompt, .send-steps, .sbf-reminder { display: none !important; }
+      .slide-title, .slide-sub, .rotate-prompt, .send-steps, .sbf-reminder, .email-options, .sent-success { display: none !important; }
       .sdp-wrap { display: block !important; }
       .slide-area { overflow: visible; padding: 0; display: block; }
       /* print ONLY the summary slide */
@@ -1461,7 +1508,6 @@
 
           <div class="chip-grid" id="supportChips" data-multi="true" data-optional>
             <div class="chip" data-val="Someone to talk to about my life right now">Someone to talk to about my life right now</div>
-            <div class="chip" data-val="Counselling">Counselling</div>
             <div class="chip" data-val="Help with time management">Help with time management</div>
             <div class="chip" data-val="Study skills & exam technique">Study skills &amp; exam technique</div>
             <div class="chip" data-val="Subject tutoring">Subject tutoring</div>
@@ -1539,7 +1585,7 @@
             <label>Date</label>
           </div>
           <div class="sig-field" id="sigf_coordinator">
-            <input type="text" id="sig_coordinator" placeholder="(SBF will sign on receipt)" readonly style="background:#f4f4f4; color:#999;">
+            <input type="text" id="sig_coordinator" placeholder="(SBF will sign on receipt)" readonly data-optional style="background:#f4f4f4; color:#999;">
             <label>SBF Coordinator <span style="color:#999;font-weight:400;">— signed by SBF after review</span></label>
           </div>
         </div>
@@ -1551,34 +1597,44 @@
         <div class="send-step">
           <span class="send-step-num">1</span>
           <div>
-            <b>Download your plan.</b><br>
-            <span style="color:#555;font-size:12px;">Click <i>Download PDF</i> — your plan saves straight to your Downloads folder as a PDF.</span>
+            <b>Download a copy for yourself.</b><br>
+            <span style="color:#555;font-size:12px;">Click <i>Download PDF</i> — your plan saves to your Downloads folder so you have your own copy.</span>
           </div>
         </div>
         <div class="send-step">
           <span class="send-step-num">2</span>
           <div>
-            <b>Email it to SBF.</b><br>
-            <span style="color:#555;font-size:12px;">Click <i>Email to SBF</i> — your mail app opens with everything filled in.</span>
+            <b>Send it to SBF.</b><br>
+            <span style="color:#555;font-size:12px;">Click <i>Send to SBF</i> — we email your plan straight to SBF with the PDF attached. No mail app needed.</span>
           </div>
-        </div>
-      </div>
-
-      <div class="attach-alert">
-        <span class="attach-alert-icon">⚠</span>
-        <div>
-          <div class="attach-alert-title">DON'T FORGET TO ATTACH THE PDF</div>
-          <div class="attach-alert-body">Before you hit Send in your email app, attach the PDF you downloaded in Step 1 — otherwise SBF won't be able to see your plan.</div>
         </div>
       </div>
 
       <div class="summary-actions">
         <button class="print-btn" id="printBtn" onclick="downloadPDF()">⬇ 1. Download PDF</button>
-        <button class="copy-btn" id="copyBtn" onclick="emailSBF()">✉ 2. Email to SBF</button>
+        <button class="copy-btn" id="copyBtn" onclick="emailSBF()">✉ 2. Send to SBF</button>
       </div>
 
       <div class="sbf-reminder" id="sbfReminder">
-        <b>✓ PDF saved to your Downloads.</b> Now tap <b>2. Email to SBF</b> — your mail app opens with everything filled in. Attach the PDF you just downloaded, then hit Send. Your plan isn't with SBF until that email goes through.
+        <b>✓ PDF saved to your Downloads.</b> Now tap <b>2. Send to SBF</b> — we'll email your plan to SBF for you with the PDF attached.
+      </div>
+
+      <div class="sent-success" id="sentSuccess">
+        <b>✓ Plan sent to SBF.</b><br>
+        Your Scholar Development Plan has been emailed to <b>highschool@mysbf.co.za</b> with the PDF attached. SBF will be in touch.
+      </div>
+
+      <div class="email-options" id="emailOptions">
+        <div class="eo-title">Auto-send didn't work — pick a backup way to send</div>
+        <div class="eo-to"><b>To:</b> <span id="eoToAddr">highschool@mysbf.co.za</span></div>
+        <div class="eo-to"><b>Subject:</b> <span id="eoSubjectText"></span></div>
+        <div class="eo-attach">⚠ Attach the PDF you downloaded in Step 1 before you hit Send.</div>
+        <div class="eo-buttons">
+          <a class="eo-btn eo-primary" id="eoGmail" href="#" target="_blank" rel="noopener">Open in Gmail</a>
+          <a class="eo-btn" id="eoOutlook" href="#" target="_blank" rel="noopener">Open in Outlook</a>
+          <a class="eo-btn" id="eoMailto" href="#">Use my email app</a>
+          <button type="button" class="eo-btn" id="eoCopy">Copy email body</button>
+        </div>
       </div>
     </div>
 
@@ -2189,41 +2245,46 @@
 
   const SBF_EMAIL = 'highschool@mysbf.co.za';
 
+  async function buildSDPPdf(record) {
+    if (!window.html2canvas || !window.jspdf) {
+      throw new Error('PDF libraries not loaded');
+    }
+    const report = document.getElementById('pdfReport');
+    const canvas = await html2canvas(report, { scale: 2, backgroundColor: '#ffffff', useCORS: true });
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    const pageW = pdf.internal.pageSize.getWidth();
+    const pageH = pdf.internal.pageSize.getHeight();
+    const imgW = pageW;
+    const imgH = canvas.height * imgW / canvas.width;
+    const imgData = canvas.toDataURL('image/png');
+    let heightLeft = imgH;
+    let position = 0;
+    pdf.addImage(imgData, 'PNG', 0, position, imgW, imgH);
+    heightLeft -= pageH;
+    while (heightLeft > 0) {
+      position -= pageH;
+      pdf.addPage();
+      pdf.addImage(imgData, 'PNG', 0, position, imgW, imgH);
+      heightLeft -= pageH;
+    }
+    const fileName = 'SDP_' + (`${record.first_name || ''}_${record.last_name || ''}`.replace(/\s+/g, '') || 'Scholar') + '.pdf';
+    return { pdf, fileName };
+  }
+
   async function downloadPDF() {
     const btn = document.getElementById('printBtn');
-    const report = document.getElementById('pdfReport');
-    const fileName = 'SDP_' + (`${val('firstName')}_${val('lastName')}`.replace(/\s+/g, '') || 'Scholar') + '.pdf';
-
-    // If the PDF libraries didn't load (e.g. offline), fall back to the print dialog.
     if (!window.html2canvas || !window.jspdf) {
       window.print();
       document.getElementById('sbfReminder').classList.add('show');
       return;
     }
-
     const original = btn.textContent;
     btn.disabled = true;
     btn.textContent = 'Building PDF…';
     try {
-      const canvas = await html2canvas(report, { scale: 2, backgroundColor: '#ffffff', useCORS: true });
-      const { jsPDF } = window.jspdf;
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const pageW = pdf.internal.pageSize.getWidth();
-      const pageH = pdf.internal.pageSize.getHeight();
-      const imgW = pageW;
-      const imgH = canvas.height * imgW / canvas.width;
-      const imgData = canvas.toDataURL('image/png');
-
-      let heightLeft = imgH;
-      let position = 0;
-      pdf.addImage(imgData, 'PNG', 0, position, imgW, imgH);
-      heightLeft -= pageH;
-      while (heightLeft > 0) {
-        position -= pageH;
-        pdf.addPage();
-        pdf.addImage(imgData, 'PNG', 0, position, imgW, imgH);
-        heightLeft -= pageH;
-      }
+      const record = collectSDPRecord();
+      const { pdf, fileName } = await buildSDPPdf(record);
       pdf.save(fileName);
       document.getElementById('sbfReminder').classList.add('show');
       btn.textContent = '✓ Downloaded';
@@ -2258,34 +2319,85 @@
     ].join('\n');
   }
 
+  function openManualEmailPanel(record) {
+    const subject = `Scholar Development Plan — ${record.first_name || ''} ${record.last_name || ''}`.trim();
+    const body = buildEmailBody(record);
+    const encTo = encodeURIComponent(SBF_EMAIL);
+    const encSubject = encodeURIComponent(subject);
+    const encBody = encodeURIComponent(body);
+
+    document.getElementById('eoSubjectText').textContent = subject;
+    document.getElementById('eoGmail').href =
+      `https://mail.google.com/mail/?view=cm&fs=1&to=${encTo}&su=${encSubject}&body=${encBody}`;
+    document.getElementById('eoOutlook').href =
+      `https://outlook.live.com/mail/0/deeplink/compose?to=${encTo}&subject=${encSubject}&body=${encBody}`;
+    document.getElementById('eoMailto').href =
+      `mailto:${SBF_EMAIL}?subject=${encSubject}&body=${encBody}`;
+
+    const copyBtn = document.getElementById('eoCopy');
+    copyBtn.onclick = async () => {
+      const text = `To: ${SBF_EMAIL}\nSubject: ${subject}\n\n${body}`;
+      try {
+        await navigator.clipboard.writeText(text);
+        copyBtn.textContent = '✓ Copied';
+        setTimeout(() => { copyBtn.textContent = 'Copy email body'; }, 2500);
+      } catch (e) {
+        alert('Could not copy automatically — select and copy this text:\n\n' + text);
+      }
+    };
+
+    const panel = document.getElementById('emailOptions');
+    panel.classList.add('show');
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
   async function emailSBF() {
     const btn = document.getElementById('copyBtn');
-    if (!validateSignatures()) {
-      return;
-    }
-    const ok = confirm('⚠ DON\'T FORGET TO ATTACH YOUR PDF\n\nBefore you hit Send in your email app, attach the PDF you downloaded in Step 1.\n\nReady to open your email app?');
-    if (!ok) return;
-    btn.disabled = true;
-    btn.textContent = 'Preparing…';
+    if (!validateSignatures()) return;
 
     const record = collectSDPRecord();
 
-    // Try to save to Supabase in the background (best effort — don't block email)
+    // Save to Supabase in the background (best effort)
     if (spClient) {
       spClient.from('scholar_development_plans').insert(record).then(({ error }) => {
         if (error) console.error('SDP Supabase save failed:', error);
       });
     }
 
-    const subject = `Scholar Development Plan — ${record.first_name || ''} ${record.last_name || ''}`.trim();
-    const body = buildEmailBody(record);
-    const mailto = `mailto:${SBF_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const original = btn.textContent;
+    btn.disabled = true;
 
-    // Open the user's email client
-    window.location.href = mailto;
+    try {
+      btn.textContent = 'Building PDF…';
+      const { pdf, fileName } = await buildSDPPdf(record);
+      const pdfBase64 = pdf.output('datauristring').split(',')[1];
 
-    btn.textContent = '✓ Opening email…';
-    setTimeout(() => { btn.disabled = false; btn.textContent = '✉ Email to SBF'; }, 4000);
+      btn.textContent = 'Sending to SBF…';
+      const r = await fetch('/api/send-sdp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ record, pdfBase64, fileName })
+      });
+
+      if (!r.ok) {
+        const detail = await r.text().catch(() => '');
+        throw new Error(`Server responded ${r.status}: ${detail}`);
+      }
+
+      const success = document.getElementById('sentSuccess');
+      success.classList.add('show');
+      success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      btn.textContent = '✓ Sent to SBF';
+      // Hide the manual panel and step-2 reminder once the auto-send succeeds
+      document.getElementById('emailOptions').classList.remove('show');
+    } catch (e) {
+      console.error('Auto-send failed, falling back to manual panel:', e);
+      btn.textContent = original;
+      btn.disabled = false;
+      openManualEmailPanel(record);
+    } finally {
+      btn.disabled = false;
+    }
   }
 
   // Init
