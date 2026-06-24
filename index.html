@@ -495,26 +495,24 @@
 
     /* SUMMARY */
     .summary-wrap {
-      background: var(--navy); border-radius: 10px;
-      padding: 1.4rem; color: #fff; margin-bottom: 1rem;
+      background: #fff; border: 1px solid #e4e4e4; border-radius: 10px;
+      padding: 1.6rem 1.5rem; color: var(--navy); margin-bottom: 1rem;
     }
     .summary-name {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 26px; letter-spacing: 1px;
+      font-size: 28px; letter-spacing: 1px; color: var(--navy);
     }
-    .summary-meta { font-size: 12px; color: var(--sky); margin-top: 4px; }
-    .summary-section { margin-bottom: 1.1rem; }
+    .summary-meta { font-size: 12px; color: #888; margin-top: 4px; }
+    .summary-section { padding: 1.1rem 0; border-top: 1px solid #ececec; }
+    .summary-section:first-of-type { border-top: none; padding-top: 0.2rem; }
     .summary-section-title {
-      font-size: 10px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 1.2px; color: var(--amber); margin-bottom: 7px;
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1.2px; color: var(--red); margin-bottom: 9px;
     }
-    .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .summary-item {
-      background: rgba(255,255,255,0.08);
-      border-radius: 6px; padding: 8px 11px;
-    }
-    .summary-item-label { font-size: 10px; color: var(--sky); margin-bottom: 2px; }
-    .summary-item-val { font-size: 12px; color: #fff; font-weight: 500; line-height: 1.4; }
+    .summary-grid { display: flex; flex-direction: column; gap: 11px; }
+    .summary-item { background: transparent; padding: 0; }
+    .summary-item-label { font-size: 11px; color: #999; margin-bottom: 2px; }
+    .summary-item-val { font-size: 13px; color: var(--navy); font-weight: 500; line-height: 1.5; }
 
     /* PARENT BOX */
     .parent-box {
@@ -833,7 +831,7 @@
       line-height: 1.5;
       max-width: 280px;
     }
-    @media (max-width: 900px) and (orientation: portrait) {
+    @media (max-width: 1024px) and (orientation: portrait) {
       .rotate-prompt { display: flex; }
       .sdp-wrap { display: none; }
       body { overflow: hidden; }
@@ -848,13 +846,63 @@
       .emoji-opt p { display: none; }
     }
 
+    /* DOWNLOAD CONFIRMATION POPUP */
+    .pdf-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(39,38,95,0.55);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .pdf-modal.show { display: flex; }
+    .pdf-modal-card {
+      background: #fff;
+      border-radius: 14px;
+      max-width: 360px;
+      width: 100%;
+      padding: 1.8rem 1.6rem;
+      text-align: center;
+      box-shadow: 0 12px 50px rgba(0,0,0,0.3);
+    }
+    .pdf-modal-icon { font-size: 44px; margin-bottom: 0.6rem; }
+    .pdf-modal-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      letter-spacing: 0.8px;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+    .pdf-modal-text {
+      font-size: 14px;
+      line-height: 1.55;
+      color: #333;
+      margin-bottom: 1.3rem;
+    }
+    .pdf-modal-text a { color: var(--red); font-weight: 700; text-decoration: none; }
+    .pdf-modal-btn {
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 0.7rem 1.8rem;
+      font-family: 'Rethink Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+    }
+    .pdf-modal-btn:hover { background: #1d1c4a; }
+
     @media print {
       @page { size: A4 landscape; margin: 12mm 14mm; }
       body { background: #fff; overflow: visible; }
       .sdp-wrap { box-shadow: none; max-width: 100%; height: auto; display: block; }
       .sdp-header, .progress-bar-wrap, .nav-bar, .print-btn, .copy-btn,
       .add-subject-btn, .step-chip, .hero-aside, .section-tag,
-      .slide-title, .slide-sub, .rotate-prompt, .send-steps, .sbf-reminder, .email-options, .sent-success { display: none !important; }
+      .slide-title, .slide-sub, .rotate-prompt, .send-steps, .sbf-reminder, .email-options, .sent-success, .pdf-modal { display: none !important; }
       .sdp-wrap { display: block !important; }
       .slide-area { overflow: visible; padding: 0; display: block; }
       /* print ONLY the summary slide */
@@ -863,10 +911,11 @@
       .slide[data-section="Summary"] .hero-grid { display: block; }
       .slide[data-section="Summary"] .hero-form { display: block; }
       .summary-wrap {
-        background: var(--navy) !important;
-        color: #fff !important;
+        background: #fff !important;
+        color: var(--navy) !important;
+        border: 1px solid #e4e4e4 !important;
         -webkit-print-color-adjust: exact; print-color-adjust: exact;
-        padding: 1.2rem !important;
+        padding: 1.4rem !important;
       }
       .summary-section { page-break-inside: avoid; break-inside: avoid; }
       .summary-item { page-break-inside: avoid; break-inside: avoid; }
@@ -882,7 +931,17 @@
 <div class="rotate-prompt">
   <div class="rotate-icon">📱</div>
   <div class="rotate-headline">Please rotate to <span>landscape</span>.</div>
-  <div class="rotate-tagline">Your Scholar Development Plan works best with your phone sideways.</div>
+  <div class="rotate-tagline">Your Scholar Development Plan works best on phones and tablets held sideways.</div>
+</div>
+
+<!-- Download confirmation popup -->
+<div class="pdf-modal" id="pdfModal">
+  <div class="pdf-modal-card">
+    <div class="pdf-modal-icon">📄</div>
+    <div class="pdf-modal-title">Almost done</div>
+    <p class="pdf-modal-text">Once you have downloaded the PDF onto your device, email it to <a href="mailto:tania@mysbf.co.za">tania@mysbf.co.za</a>.</p>
+    <button type="button" class="pdf-modal-btn" id="pdfModalClose">Got it</button>
+  </div>
 </div>
 
 <div class="sdp-wrap">
@@ -935,6 +994,10 @@
             <li>Understand <i>why</i> your results came out the way they did</li>
             <li>Set goals you can actually hit next term</li>
           </ul>
+
+          <div style="background:#fff7e6; border:1px solid var(--amber); border-radius:10px; padding:0.7rem 0.85rem; margin-bottom:0.9rem; font-size:13px; line-height:1.55; color:#222;">
+            <b>Before you start:</b> set aside about <b>30 minutes</b> so you can work through this properly without rushing. Once you've finished, your completed plan will need to be emailed to <b><a href="mailto:tania@mysbf.co.za" style="color:var(--red); text-decoration:none;">tania@mysbf.co.za</a></b>.
+          </div>
 
           <p style="font-size:13.5px; line-height:1.55; color:#222;">
             Be straight with yourself — there are no wrong answers, and nobody's grading this. Tap <b>Next</b> when you're ready.
@@ -1478,7 +1541,7 @@
           <label class="field-label">Copy this frame and fill in the blanks:</label>
           <div class="smart-frame">"I will lift my overall average from <i>__%</i> to <i>__%</i> by <i>(date)</i> by doing <i>(specific action)</i> for <i>(how often / how long)</i>."</div>
 
-          <textarea id="q_overallGoal" data-min="120" placeholder="Paste the frame above, then swap the blanks for your own numbers and actions..." style="min-height: 160px;"></textarea>
+          <textarea id="q_overallGoal" data-min="90" placeholder="Paste the frame above, then swap the blanks for your own numbers and actions..." style="min-height: 160px;"></textarea>
           <div class="starters">
             <b>Quick SMART check</b>
             <ul>
@@ -1540,7 +1603,7 @@
       <div class="summary-wrap" id="summaryCard">
         <div class="summary-name" id="s_name"></div>
         <div class="summary-meta" id="s_meta"></div>
-        <hr style="border:none;border-top:1px solid rgba(255,255,255,0.15);margin:0.9rem 0;">
+        <hr style="border:none;border-top:1px solid #e4e4e4;margin:0.9rem 0;">
 
         <div class="summary-section">
           <div class="summary-section-title">Self-Reflection</div>
@@ -1560,7 +1623,7 @@
         </div>
         <div class="summary-section">
           <div class="summary-section-title">Overall Goal</div>
-          <div style="background:rgba(255,255,255,0.08);border-radius:7px;padding:10px 12px;font-size:13px;line-height:1.5;" id="s_goal"></div>
+          <div style="background:#f6f7f9;border:1px solid #ececec;border-radius:7px;padding:10px 12px;font-size:13px;line-height:1.5;color:var(--navy);" id="s_goal"></div>
         </div>
         <div class="summary-section" id="s_support_section" style="display:none;">
           <div class="summary-section-title">Support Requested</div>
@@ -1570,7 +1633,7 @@
 
       <div class="parent-box">
         <h3>For Parents / Guardians</h3>
-        <p>Your child has completed their Scholar Development Plan with SBF. This plan reflects their honest self-assessment and the commitments they're making to improve over the next 6 months. Please review and sign — then the plan gets emailed to SBF, where their coordinator will review and counter-sign it.</p>
+        <p>Your child has completed their Scholar Development Plan with SBF. This plan reflects their honest self-assessment and the commitments they're making to improve over the next 6 months. Please review and sign. Once it's signed, your child downloads the plan and emails it to their SBF coordinator, who will review and counter-sign it.</p>
         <div class="sig-row">
           <div class="sig-field" id="sigf_learner">
             <input type="text" id="sig_learner" placeholder="Type your name">
@@ -1589,52 +1652,12 @@
             <label>SBF Coordinator <span style="color:#999;font-weight:400;">— signed by SBF after review</span></label>
           </div>
         </div>
-        <div class="sig-error" id="sigError">⚠ Please fill in your name, your parent's name, and the date before emailing your plan to SBF.</div>
+        <div class="sig-error" id="sigError">⚠ Please fill in your name, your parent's name, and the date before downloading your plan.</div>
       </div>
       </div><!-- /#pdfReport -->
 
-      <div class="send-steps">
-        <div class="send-step">
-          <span class="send-step-num">1</span>
-          <div>
-            <b>Download a copy for yourself.</b><br>
-            <span style="color:#555;font-size:12px;">Click <i>Download PDF</i> — your plan saves to your Downloads folder so you have your own copy.</span>
-          </div>
-        </div>
-        <div class="send-step">
-          <span class="send-step-num">2</span>
-          <div>
-            <b>Send it to SBF.</b><br>
-            <span style="color:#555;font-size:12px;">Click <i>Send to SBF</i> — we email your plan straight to SBF with the PDF attached. No mail app needed.</span>
-          </div>
-        </div>
-      </div>
-
       <div class="summary-actions">
-        <button class="print-btn" id="printBtn" onclick="downloadPDF()">⬇ 1. Download PDF</button>
-        <button class="copy-btn" id="copyBtn" onclick="emailSBF()">✉ 2. Send to SBF</button>
-      </div>
-
-      <div class="sbf-reminder" id="sbfReminder">
-        <b>✓ PDF saved to your Downloads.</b> Now tap <b>2. Send to SBF</b> — we'll email your plan to SBF for you with the PDF attached.
-      </div>
-
-      <div class="sent-success" id="sentSuccess">
-        <b>✓ Plan sent to SBF.</b><br>
-        Your Scholar Development Plan has been emailed to <b>highschool@mysbf.co.za</b> with the PDF attached. SBF will be in touch.
-      </div>
-
-      <div class="email-options" id="emailOptions">
-        <div class="eo-title">Auto-send didn't work — pick a backup way to send</div>
-        <div class="eo-to"><b>To:</b> <span id="eoToAddr">highschool@mysbf.co.za</span></div>
-        <div class="eo-to"><b>Subject:</b> <span id="eoSubjectText"></span></div>
-        <div class="eo-attach">⚠ Attach the PDF you downloaded in Step 1 before you hit Send.</div>
-        <div class="eo-buttons">
-          <a class="eo-btn eo-primary" id="eoGmail" href="#" target="_blank" rel="noopener">Open in Gmail</a>
-          <a class="eo-btn" id="eoOutlook" href="#" target="_blank" rel="noopener">Open in Outlook</a>
-          <a class="eo-btn" id="eoMailto" href="#">Use my email app</a>
-          <button type="button" class="eo-btn" id="eoCopy">Copy email body</button>
-        </div>
+        <button class="print-btn" id="printBtn" onclick="downloadPDF()">⬇ Download PDF</button>
       </div>
     </div>
 
@@ -2147,15 +2170,15 @@
       const grid = document.getElementById('commitGrid_' + i);
       const checked = grid ? [...grid.querySelectorAll('.commit-item.selected')].map(c => c.dataset.val) : [];
       const allCommits = ['30 min daily on Mindjoy', 'No screens after 21:00 weeknights', ...checked];
-      actHTML += `<div style="background:rgba(255,255,255,0.08);border-radius:7px;padding:10px 12px;margin-bottom:9px;">
-        <div style="font-size:13px;font-weight:600;color:#F7B41B;margin-bottom:4px;">${subj}${mark ? ' — currently ' + mark + '%' : ''}</div>
-        ${allCommits.length ? `<div style="font-size:12px;color:#84D3F1;margin-bottom:5px;line-height:1.5;">Commitments: ${allCommits.join(' · ')}</div>` : ''}
-        ${specific ? `<div style="font-size:12px;color:#fff;margin-bottom:3px;line-height:1.4;">Will do differently: ${specific}</div>` : ''}
-        ${support ? `<div style="font-size:12px;color:#ccc;line-height:1.4;">Support needed: ${support}</div>` : ''}
+      actHTML += `<div style="background:#f6f7f9;border:1px solid #ececec;border-radius:8px;padding:11px 13px;margin-bottom:10px;">
+        <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:4px;">${subj}${mark ? ' — currently ' + mark + '%' : ''}</div>
+        ${allCommits.length ? `<div style="font-size:12px;color:#777;margin-bottom:5px;line-height:1.5;">Commitments: ${allCommits.join(' · ')}</div>` : ''}
+        ${specific ? `<div style="font-size:12px;color:var(--navy);margin-bottom:3px;line-height:1.4;">Will do differently: ${specific}</div>` : ''}
+        ${support ? `<div style="font-size:12px;color:#777;line-height:1.4;">Support needed: ${support}</div>` : ''}
       </div>`;
     }
     document.getElementById('s_actions').innerHTML = actHTML ||
-      '<div style="font-size:13px;color:#ccc;font-style:italic;">No subjects added.</div>';
+      '<div style="font-size:13px;color:#999;font-style:italic;">No subjects added.</div>';
     document.getElementById('s_goal').textContent = val('q_overallGoal') || '—';
 
     const supportHTML =
@@ -2243,8 +2266,6 @@
     }
   });
 
-  const SBF_EMAIL = 'highschool@mysbf.co.za';
-
   async function buildSDPPdf(record) {
     if (!window.html2canvas || !window.jspdf) {
       throw new Error('PDF libraries not loaded');
@@ -2255,104 +2276,62 @@
     const pdf = new jsPDF('p', 'mm', 'a4');
     const pageW = pdf.internal.pageSize.getWidth();
     const pageH = pdf.internal.pageSize.getHeight();
-    const imgW = pageW;
-    const imgH = canvas.height * imgW / canvas.width;
-    const imgData = canvas.toDataURL('image/png');
-    let heightLeft = imgH;
-    let position = 0;
-    pdf.addImage(imgData, 'PNG', 0, position, imgW, imgH);
-    heightLeft -= pageH;
-    while (heightLeft > 0) {
-      position -= pageH;
-      pdf.addPage();
-      pdf.addImage(imgData, 'PNG', 0, position, imgW, imgH);
-      heightLeft -= pageH;
+    const marginMM = 8;
+
+    // Map canvas pixels to page millimetres (image spans full page width)
+    const reportRect = report.getBoundingClientRect();
+    const scale = canvas.width / reportRect.width;
+    const pxPerMM = canvas.width / pageW;
+    const usableHpx = (pageH - marginMM * 2) * pxPerMM;
+
+    // Safe cut points: the top of each section and of the parent box.
+    // We never cut inside one of these blocks, so nothing splits across pages.
+    const breaks = [0];
+    report.querySelectorAll('.summary-section, .parent-box').forEach(el => {
+      if (el.offsetParent === null) return; // skip hidden blocks (e.g. unused Support)
+      const top = Math.round((el.getBoundingClientRect().top - reportRect.top) * scale);
+      if (top > 0) breaks.push(top);
+    });
+    breaks.push(canvas.height);
+    const cutPoints = [...new Set(breaks)].sort((a, b) => a - b);
+
+    let curTop = 0;
+    let firstPage = true;
+    while (curTop < canvas.height - 1) {
+      const limit = curTop + usableHpx;
+      // furthest safe break that still fits on this page
+      let cut = null;
+      for (const b of cutPoints) {
+        if (b > curTop && b <= limit) cut = b;
+      }
+      // a single block taller than a page: fall back to a hard cut
+      if (cut === null || cut <= curTop) cut = Math.min(limit, canvas.height);
+
+      const sliceH = cut - curTop;
+      const tmp = document.createElement('canvas');
+      tmp.width = canvas.width;
+      tmp.height = sliceH;
+      const ctx = tmp.getContext('2d');
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, tmp.width, tmp.height);
+      ctx.drawImage(canvas, 0, curTop, canvas.width, sliceH, 0, 0, canvas.width, sliceH);
+
+      if (!firstPage) pdf.addPage();
+      pdf.addImage(tmp.toDataURL('image/png'), 'PNG', 0, marginMM, pageW, sliceH / pxPerMM);
+      firstPage = false;
+      curTop = cut;
     }
+
     const fileName = 'SDP_' + (`${record.first_name || ''}_${record.last_name || ''}`.replace(/\s+/g, '') || 'Scholar') + '.pdf';
     return { pdf, fileName };
   }
 
+  function showDownloadModal() {
+    document.getElementById('pdfModal').classList.add('show');
+  }
+
   async function downloadPDF() {
     const btn = document.getElementById('printBtn');
-    if (!window.html2canvas || !window.jspdf) {
-      window.print();
-      document.getElementById('sbfReminder').classList.add('show');
-      return;
-    }
-    const original = btn.textContent;
-    btn.disabled = true;
-    btn.textContent = 'Building PDF…';
-    try {
-      const record = collectSDPRecord();
-      const { pdf, fileName } = await buildSDPPdf(record);
-      pdf.save(fileName);
-      document.getElementById('sbfReminder').classList.add('show');
-      btn.textContent = '✓ Downloaded';
-      setTimeout(() => { btn.textContent = original; }, 3000);
-    } catch (e) {
-      console.error('PDF build failed, falling back to print:', e);
-      window.print();
-      document.getElementById('sbfReminder').classList.add('show');
-      btn.textContent = original;
-    } finally {
-      btn.disabled = false;
-    }
-  }
-
-  function buildEmailBody(r) {
-    const name = `${r.first_name || ''} ${r.last_name || ''}`.trim() || 'a scholar';
-    return [
-      `Hi SBF team,`,
-      ``,
-      `Please find my Scholar Development Plan attached as a PDF.`,
-      ``,
-      `Name: ${name}`,
-      `Grade: ${r.grade || '—'}`,
-      `School: ${r.school || '—'}`,
-      `Contact: ${r.email || '—'} / ${r.phone || '—'}`,
-      ``,
-      `SMART goal for the next six months:`,
-      `${r.overall_goal || '—'}`,
-      ``,
-      `Thanks,`,
-      `${name}`
-    ].join('\n');
-  }
-
-  function openManualEmailPanel(record) {
-    const subject = `Scholar Development Plan — ${record.first_name || ''} ${record.last_name || ''}`.trim();
-    const body = buildEmailBody(record);
-    const encTo = encodeURIComponent(SBF_EMAIL);
-    const encSubject = encodeURIComponent(subject);
-    const encBody = encodeURIComponent(body);
-
-    document.getElementById('eoSubjectText').textContent = subject;
-    document.getElementById('eoGmail').href =
-      `https://mail.google.com/mail/?view=cm&fs=1&to=${encTo}&su=${encSubject}&body=${encBody}`;
-    document.getElementById('eoOutlook').href =
-      `https://outlook.live.com/mail/0/deeplink/compose?to=${encTo}&subject=${encSubject}&body=${encBody}`;
-    document.getElementById('eoMailto').href =
-      `mailto:${SBF_EMAIL}?subject=${encSubject}&body=${encBody}`;
-
-    const copyBtn = document.getElementById('eoCopy');
-    copyBtn.onclick = async () => {
-      const text = `To: ${SBF_EMAIL}\nSubject: ${subject}\n\n${body}`;
-      try {
-        await navigator.clipboard.writeText(text);
-        copyBtn.textContent = '✓ Copied';
-        setTimeout(() => { copyBtn.textContent = 'Copy email body'; }, 2500);
-      } catch (e) {
-        alert('Could not copy automatically — select and copy this text:\n\n' + text);
-      }
-    };
-
-    const panel = document.getElementById('emailOptions');
-    panel.classList.add('show');
-    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
-
-  async function emailSBF() {
-    const btn = document.getElementById('copyBtn');
     if (!validateSignatures()) return;
 
     const record = collectSDPRecord();
@@ -2364,37 +2343,25 @@
       });
     }
 
+    if (!window.html2canvas || !window.jspdf) {
+      window.print();
+      showDownloadModal();
+      return;
+    }
     const original = btn.textContent;
     btn.disabled = true;
-
+    btn.textContent = 'Building PDF…';
     try {
-      btn.textContent = 'Building PDF…';
       const { pdf, fileName } = await buildSDPPdf(record);
-      const pdfBase64 = pdf.output('datauristring').split(',')[1];
-
-      btn.textContent = 'Sending to SBF…';
-      const r = await fetch('/api/send-sdp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ record, pdfBase64, fileName })
-      });
-
-      if (!r.ok) {
-        const detail = await r.text().catch(() => '');
-        throw new Error(`Server responded ${r.status}: ${detail}`);
-      }
-
-      const success = document.getElementById('sentSuccess');
-      success.classList.add('show');
-      success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      btn.textContent = '✓ Sent to SBF';
-      // Hide the manual panel and step-2 reminder once the auto-send succeeds
-      document.getElementById('emailOptions').classList.remove('show');
+      pdf.save(fileName);
+      btn.textContent = '✓ Downloaded';
+      showDownloadModal();
+      setTimeout(() => { btn.textContent = original; }, 3000);
     } catch (e) {
-      console.error('Auto-send failed, falling back to manual panel:', e);
+      console.error('PDF build failed, falling back to print:', e);
+      window.print();
+      showDownloadModal();
       btn.textContent = original;
-      btn.disabled = false;
-      openManualEmailPanel(record);
     } finally {
       btn.disabled = false;
     }
@@ -2402,6 +2369,14 @@
 
   // Init
   showSlide(0);
+
+  // Download confirmation popup dismiss
+  document.getElementById('pdfModalClose').addEventListener('click', () => {
+    document.getElementById('pdfModal').classList.remove('show');
+  });
+  document.getElementById('pdfModal').addEventListener('click', (e) => {
+    if (e.target.id === 'pdfModal') document.getElementById('pdfModal').classList.remove('show');
+  });
 
   // Keyboard nav
   document.addEventListener('keydown', e => {
