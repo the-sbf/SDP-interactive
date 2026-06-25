@@ -944,6 +944,16 @@
   </div>
 </div>
 
+<!-- Thank-you popup (shown on Done) -->
+<div class="pdf-modal" id="thankYouModal">
+  <div class="pdf-modal-card">
+    <div class="pdf-modal-icon">🎉</div>
+    <div class="pdf-modal-title">Thank you</div>
+    <p class="pdf-modal-text">Thank you for completing your SDP. SBF is here to support you on your academic journey.</p>
+    <button type="button" class="pdf-modal-btn" id="thankYouModalClose">Close</button>
+  </div>
+</div>
+
 <div class="sdp-wrap">
 
   <!-- HEADER -->
@@ -2117,7 +2127,12 @@
     }
     const updatedSlides = getSlides();
     if (current === updatedSlides.length - 2) buildSummary();
-    if (current < updatedSlides.length - 1) showSlide(current + 1);
+    if (current < updatedSlides.length - 1) {
+      showSlide(current + 1);
+    } else {
+      // On the final slide, "Done" thanks the scholar
+      document.getElementById('thankYouModal').classList.add('show');
+    }
   }
   function goPrev() {
     if (current > 0) showSlide(current - 1);
@@ -2376,6 +2391,14 @@
   });
   document.getElementById('pdfModal').addEventListener('click', (e) => {
     if (e.target.id === 'pdfModal') document.getElementById('pdfModal').classList.remove('show');
+  });
+
+  // Thank-you popup dismiss
+  document.getElementById('thankYouModalClose').addEventListener('click', () => {
+    document.getElementById('thankYouModal').classList.remove('show');
+  });
+  document.getElementById('thankYouModal').addEventListener('click', (e) => {
+    if (e.target.id === 'thankYouModal') document.getElementById('thankYouModal').classList.remove('show');
   });
 
   // Keyboard nav
